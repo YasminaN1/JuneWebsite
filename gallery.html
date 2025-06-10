@@ -51,7 +51,586 @@
             </div>
         </nav>
     </header>
-    <main></main>
+    <main>
+
+        <html>
+
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Modern E-commerce Product Cards</title>
+            <style>
+                * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+                }
+
+                :root {
+                    --primary: #f8f7f4;
+                    --secondary: #31302c;
+                    --accent: #866a4b;
+                    --gray-100: #f3f3f3;
+                    --gray-200: #e9e9e9;
+                    --gray-300: #d1d1d1;
+                    --gray-400: #a0a0a0;
+                    --gray-500: #6c6c6c;
+                    --border-radius: 12px;
+                    --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+                }
+
+                body {
+                    background-color: var(--primary);
+                    height: 100vh;
+                    padding: 20px;
+                    max-width: 700px;
+                    margin: 0 auto;
+                    display: flex;
+                    flex-direction: column;
+                    overflow-x: hidden;
+                }
+
+                header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 25px;
+                    position: relative;
+                }
+
+                .logo {
+                    font-weight: 700;
+                    font-size: 20px;
+                    color: var(--secondary);
+                    letter-spacing: -0.02em;
+                }
+
+                .filter-options {
+                    display: flex;
+                    gap: 12px;
+                    margin-bottom: 16px;
+                    flex-wrap: wrap;
+                }
+
+                .filter-option {
+                    padding: 8px 16px;
+                    background-color: var(--gray-200);
+                    border-radius: 50px;
+                    font-size: 13px;
+                    font-weight: 500;
+                    color: var(--gray-500);
+                    cursor: pointer;
+                    transition: var(--transition);
+                }
+
+                .filter-option:hover {
+                    background-color: var(--secondary);
+                    color: var(--primary);
+                }
+
+                .filter-option.active {
+                    background-color: var(--secondary);
+                    color: var(--primary);
+                }
+
+                .cart-icon {
+                    position: relative;
+                    cursor: pointer;
+                }
+
+                .cart-count {
+                    position: absolute;
+                    top: -8px;
+                    right: -8px;
+                    background-color: var(--accent);
+                    color: white;
+                    font-size: 10px;
+                    font-weight: 600;
+                    width: 18px;
+                    height: 18px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    opacity: 0;
+                    transform: scale(0.8);
+                    transition: var(--transition);
+                }
+
+                .cart-count.active {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+
+                .product-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+                    gap: 20px;
+                    margin-bottom: 30px;
+                }
+
+                .product-card {
+                    background-color: white;
+                    border-radius: var(--border-radius);
+                    overflow: hidden;
+                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+                    transition: var(--transition);
+                    position: relative;
+                    height: 340px;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .product-card:hover {
+                    transform: translateY(-4px);
+                    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+                }
+
+                .product-image {
+                    height: 200px;
+                    width: 100%;
+                    background-size: cover;
+                    background-position: center;
+                    position: relative;
+                    overflow: hidden;
+                }
+
+                .product-image::after {
+                    content: '';
+                    position: absolute;
+                    inset: 0;
+                    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 0.1) 100%);
+                    opacity: 0;
+                    transition: var(--transition);
+                }
+
+                .product-card:hover .product-image::after {
+                    opacity: 1;
+                }
+
+                .product-label {
+                    position: absolute;
+                    top: 12px;
+                    left: 12px;
+                    padding: 4px 10px;
+                    background-color: var(--accent);
+                    color: white;
+                    font-size: 11px;
+                    font-weight: 600;
+                    border-radius: 4px;
+                    text-transform: uppercase;
+                }
+
+                .product-wishlist {
+                    position: absolute;
+                    top: 12px;
+                    right: 12px;
+                    width: 30px;
+                    height: 30px;
+                    background-color: white;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    opacity: 0;
+                    transform: translateY(5px);
+                    transition: var(--transition);
+                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                }
+
+                .product-card:hover .product-wishlist {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+
+                .product-wishlist.active svg path {
+                    fill: #e74c3c;
+                    stroke: #e74c3c;
+                }
+
+                .product-info {
+                    padding: 16px;
+                    flex-grow: 1;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .product-category {
+                    font-size: 12px;
+                    color: var(--gray-400);
+                    text-transform: uppercase;
+                    letter-spacing: 0.05em;
+                    margin-bottom: 4px;
+                }
+
+                .product-name {
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: var(--secondary);
+                    margin-bottom: 6px;
+                    line-height: 1.3;
+                    letter-spacing: -0.01em;
+                }
+
+                .rating {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 8px;
+                }
+
+                .stars {
+                    display: flex;
+                    margin-right: 6px;
+                }
+
+                .star {
+                    color: #ffd700;
+                    font-size: 12px;
+                }
+
+                .review-count {
+                    font-size: 12px;
+                    color: var(--gray-400);
+                }
+
+                .price-row {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-top: auto;
+                }
+
+                .price {
+                    font-weight: 700;
+                    font-size: 18px;
+                    color: var(--secondary);
+                    letter-spacing: -0.02em;
+                }
+
+                .original-price {
+                    font-size: 14px;
+                    color: var(--gray-400);
+                    text-decoration: line-through;
+                    margin-left: 6px;
+                }
+
+                .add-to-cart {
+                    background-color: var(--gray-200);
+                    color: var(--secondary);
+                    border: none;
+                    border-radius: 50%;
+                    width: 36px;
+                    height: 36px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    transition: var(--transition);
+                    opacity: 0.9;
+                }
+
+                .add-to-cart:hover {
+                    background-color: var(--secondary);
+                    color: white;
+                }
+
+                .add-to-cart:active {
+                    transform: scale(0.95);
+                }
+
+                .cart-tooltip {
+                    position: absolute;
+                    bottom: 100%;
+                    right: 0;
+                    background-color: var(--secondary);
+                    color: white;
+                    font-size: 12px;
+                    padding: 6px 12px;
+                    border-radius: 4px;
+                    white-space: nowrap;
+                    opacity: 0;
+                    transform: translateY(5px);
+                    transition: var(--transition);
+                    pointer-events: none;
+                    margin-bottom: 8px;
+                }
+
+                .cart-tooltip::after {
+                    content: '';
+                    position: absolute;
+                    top: 100%;
+                    right: 14px;
+                    border-width: 5px;
+                    border-style: solid;
+                    border-color: var(--secondary) transparent transparent transparent;
+                }
+
+                .add-to-cart:hover+.cart-tooltip {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+
+                .product-quick-view {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    background-color: rgba(49, 48, 44, 0.9);
+                    color: white;
+                    text-align: center;
+                    padding: 10px;
+                    font-weight: 500;
+                    font-size: 13px;
+                    transform: translateY(100%);
+                    transition: var(--transition);
+                    cursor: pointer;
+                }
+
+                .product-card:hover .product-quick-view {
+                    transform: translateY(0);
+                }
+
+                .cart-notification {
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    background-color: var(--secondary);
+                    color: white;
+                    padding: 12px 16px;
+                    border-radius: var(--border-radius);
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    transform: translateY(100px);
+                    opacity: 0;
+                    transition: var(--transition);
+                    z-index: 10;
+                    max-width: 300px;
+                }
+
+                .cart-notification.active {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+
+                .notification-check {
+                    width: 18px;
+                    height: 18px;
+                    background-color: var(--accent);
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .notification-text {
+                    font-size: 14px;
+                    line-height: 1.4;
+                    flex: 1;
+                }
+
+                /* For mobile screens */
+                @media (max-width: 600px) {
+                    .product-grid {
+                        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                        gap: 15px;
+                    }
+
+                    .product-card {
+                        height: 320px;
+                    }
+
+                    .product-image {
+                        height: 170px;
+                    }
+
+                    .product-name {
+                        font-size: 14px;
+                    }
+
+                    .price {
+                        font-size: 16px;
+                    }
+                }
+
+                /* Loading animation */
+                @keyframes shimmer {
+                    0% {
+                        background-position: -468px 0;
+                    }
+
+                    100% {
+                        background-position: 468px 0;
+                    }
+                }
+
+                .loading .product-card {
+                    pointer-events: none;
+                }
+
+                .loading .product-image {
+                    background-color: var(--gray-200);
+                    background-image: linear-gradient(to right,
+                            var(--gray-200) 0%,
+                            var(--gray-100) 20%,
+                            var(--gray-200) 40%,
+                            var(--gray-200) 100%);
+                    background-repeat: no-repeat;
+                    background-size: 800px 100%;
+                    animation: shimmer 1.5s infinite linear;
+                }
+
+                .loading .product-category,
+                .loading .product-name,
+                .loading .rating,
+                .loading .price-row {
+                    background-color: var(--gray-200);
+                    border-radius: 4px;
+                    height: 14px;
+                    margin-bottom: 8px;
+                    background-image: linear-gradient(to right,
+                            var(--gray-200) 0%,
+                            var(--gray-100) 20%,
+                            var(--gray-200) 40%,
+                            var(--gray-200) 100%);
+                    background-repeat: no-repeat;
+                    background-size: 800px 100%;
+                    animation: shimmer 1.5s infinite linear;
+                }
+
+                .loading .product-name {
+                    height: 18px;
+                    width: 80%;
+                }
+
+                .loading .price-row {
+                    height: 20px;
+                    margin-top: auto;
+                }
+            </style>
+        </head>
+
+        <body>
+            <header>
+                <div class="logo">NORDIC</div>
+                <div class="cart-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z"
+                            stroke="#31302C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z"
+                            stroke="#31302C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6"
+                            stroke="#31302C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <div class="cart-count">0</div>
+                </div>
+            </header>
+
+            <div class="filter-options">
+                <div class="filter-option active">All</div>
+                <div class="filter-option">Furniture</div>
+                <div class="filter-option">Lighting</div>
+                <div class="filter-option">Decor</div>
+                <div class="filter-option">Kitchen</div>
+            </div>
+
+            <div class="product-grid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <div class="product-image"
+                        style="background-image: url('https://images.unsplash.com/photo-1592078615290-033ee584e267?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80')">
+                        <div class="product-label">New</div>
+                        <div class="product-wishlist">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Furniture</div>
+                        <div class="product-name">Oslo Lounge Chair</div>
+                        <div class="rating">
+                            <div class="stars">
+                                <div class="star">★</div>
+                                <div class="star">★</div>
+                                <div class="star">★</div>
+                                <div class="star">★</div>
+                                <div class="star">★</div>
+                            </div>
+                            <div class="review-count">42 reviews</div>
+                        </div>
+                        <div class="price-row">
+                            <div>
+                                <span class="price">$349</span>
+                                <span class="original-price">$429</span>
+                            </div>
+                            <button class="add-to-cart" data-product="Oslo Lounge Chair" data-price="349">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </button>
+                            <div class="cart-tooltip">Add to cart</div>
+                        </div>
+                    </div>
+                    <div class="product-quick-view">Quick view</div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <div class="product-image"
+                        style="background-image: url('https://images.unsplash.com/photo-1538688423619-a81d3f23454b?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80')">
+                        <div class="product-wishlist">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Lighting</div>
+                        <div class="product-name">Scandic Pendant Light</div>
+                        <div class="rating">
+                            <div class="stars">
+                                <div class="star">★</div>
+                                <div class="star">★</div>
+                                <div class="star">★</div>
+                                <div class="star">★</div>
+                                <div class="star">☆</div>
+                            </div>
+                            <div class="review-count">28 reviews</div>
+                        </div>
+                        <div class="price-row">
+                            <div>
+                                <span class="price">$179</span>
+                            </div>
+                            <button class="add-to-cart" data-product="Scandic Pendant Light" data-price="179">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </button>
+                            <div class="cart-tooltip">Add to cart</div>
+                        </div>
+                    </div>
+                    <div class="product-quick-view">Quick view</div>
+                </div>
+
+    </main>
     <footer>
         <div class="footer">
             <div class="row">
