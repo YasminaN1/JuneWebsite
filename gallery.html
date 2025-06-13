@@ -52,906 +52,852 @@
         </nav>
     </header>
     <main>
-
-
         <html>
 
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Modern E-commerce Product Cards</title>
             <style>
+                @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500&display=swap');
+
+                * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }
+
                 :root {
-                    --primary: #f8f7f4;
-                    --secondary: #31302c;
-                    --accent: #866a4b;
-                    --gray-100: #f3f3f3;
-                    --gray-200: #e9e9e9;
-                    --gray-300: #d1d1d1;
-                    --gray-400: #a0a0a0;
-                    --gray-500: #6c6c6c;
-                    --border-radius: 12px;
-                    --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+                    --primary-color: #f6eee5;
+                    --secondary-color: #e8d8c7;
+                    --accent: #c9a892;
+                    --dark-accent: #8c7a76;
+                    --text-color: #3c3532;
+                    --light-text: #6d6661;
+                    --white: #ffffff;
                 }
 
                 body {
-                    background-color: var(--primary);
-                    height: 100vh;
-                    padding: 20px;
-                    max-width: 700px;
-                    margin: 0 auto;
-                    display: flex;
-                    flex-direction: column;
+                    font-family: 'Cormorant Garamond', serif;
+                    background-color: var(--primary-color);
+                    color: var(--text-color);
+                    width: 100%;
+                    height: 100%;
                     overflow-x: hidden;
                 }
 
+                .container {
+                    max-width: 1400px;
+                    margin: 0 auto;
+                }
+
+
                 header {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    margin-bottom: 25px;
-                    position: relative;
-                }
-
-                .logo {
-                    font-weight: 700;
-                    font-size: 20px;
-                    color: var(--secondary);
-                    letter-spacing: -0.02em;
-                }
-
-                .filter-options {
-                    display: flex;
-                    gap: 12px;
-                    margin-bottom: 16px;
-                    flex-wrap: wrap;
-                }
-
-                .filter-option {
-                    padding: 8px 16px;
-                    background-color: var(--gray-200);
-                    border-radius: 50px;
-                    font-size: 13px;
-                    font-weight: 500;
-                    color: var(--gray-500);
-                    cursor: pointer;
-                    transition: var(--transition);
-                }
-
-                .filter-option:hover {
-                    background-color: var(--secondary);
-                    color: var(--primary);
-                }
-
-                .filter-option.active {
-                    background-color: var(--secondary);
-                    color: var(--primary);
-                }
-
-                .cart-icon {
-                    position: relative;
-                    cursor: pointer;
-                }
-
-                .cart-count {
-                    position: absolute;
-                    top: -8px;
-                    right: -8px;
-                    background-color: var(--accent);
-                    color: white;
-                    font-size: 10px;
-                    font-weight: 600;
-                    width: 18px;
-                    height: 18px;
-                    border-radius: 50%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    opacity: 0;
-                    transform: scale(0.8);
-                    transition: var(--transition);
-                }
-
-                .cart-count.active {
-                    opacity: 1;
-                    transform: scale(1);
-                }
-
-                .product-grid {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-                    gap: 20px;
+                    text-align: center;
                     margin-bottom: 30px;
-                }
-
-                .product-card {
-                    background-color: white;
-                    border-radius: var(--border-radius);
-                    overflow: hidden;
-                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-                    transition: var(--transition);
                     position: relative;
-                    height: 340px;
-                    display: flex;
-                    flex-direction: column;
                 }
 
-                .product-card:hover {
-                    transform: translateY(-4px);
-                    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+                h1 {
+                    font-size: 2.5rem;
+                    font-weight: 500;
+                    letter-spacing: 1px;
+                    margin-bottom: 5px;
+                    color: var(--text-color);
                 }
 
-                .product-image {
-                    height: 200px;
-                    width: 100%;
-                    background-size: cover;
-                    background-position: center;
-                    position: relative;
-                    overflow: hidden;
-                }
-
-                .product-image::after {
-                    content: '';
-                    position: absolute;
-                    inset: 0;
-                    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 0.1) 100%);
-                    opacity: 0;
-                    transition: var(--transition);
-                }
-
-                .product-card:hover .product-image::after {
-                    opacity: 1;
-                }
-
-                .product-label {
-                    position: absolute;
-                    top: 12px;
-                    left: 12px;
-                    padding: 4px 10px;
-                    background-color: var(--accent);
-                    color: white;
-                    font-size: 11px;
-                    font-weight: 600;
-                    border-radius: 4px;
+                .subtitle {
+                    font-family: 'Montserrat', sans-serif;
+                    font-size: 0.85rem;
+                    font-weight: 400;
+                    letter-spacing: 2px;
                     text-transform: uppercase;
+                    color: var(--light-text);
                 }
 
-                .product-wishlist {
-                    position: absolute;
-                    top: 12px;
-                    right: 12px;
-                    width: 30px;
-                    height: 30px;
-                    background-color: white;
-                    border-radius: 50%;
+                .filter-bar {
                     display: flex;
-                    align-items: center;
                     justify-content: center;
-                    cursor: pointer;
-                    opacity: 0;
-                    transform: translateY(5px);
-                    transition: var(--transition);
-                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                    margin-bottom: 30px;
+                    overflow-x: auto;
+                    padding: 5px 0;
                 }
 
-                .product-card:hover .product-wishlist {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-
-                .product-wishlist.active svg path {
-                    fill: #e74c3c;
-                    stroke: #e74c3c;
-                }
-
-                .product-info {
-                    padding: 16px;
-                    flex-grow: 1;
-                    display: flex;
-                    flex-direction: column;
-                }
-
-                .product-category {
-                    font-size: 12px;
-                    color: var(--gray-400);
-                    text-transform: uppercase;
-                    letter-spacing: 0.05em;
-                    margin-bottom: 4px;
-                }
-
-                .product-name {
-                    font-size: 16px;
-                    font-weight: 600;
-                    color: var(--secondary);
-                    margin-bottom: 6px;
-                    line-height: 1.3;
-                    letter-spacing: -0.01em;
-                }
-
-                .rating {
-                    display: flex;
-                    align-items: center;
-                    margin-bottom: 8px;
-                }
-
-                .stars {
-                    display: flex;
-                    margin-right: 6px;
-                }
-
-                .star {
-                    color: #ffd700;
-                    font-size: 12px;
-                }
-
-                .review-count {
-                    font-size: 12px;
-                    color: var(--gray-400);
-                }
-
-                .price-row {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    margin-top: auto;
-                }
-
-                .price {
-                    font-weight: 700;
-                    font-size: 18px;
-                    color: var(--secondary);
-                    letter-spacing: -0.02em;
-                }
-
-                .original-price {
-                    font-size: 14px;
-                    color: var(--gray-400);
-                    text-decoration: line-through;
-                    margin-left: 6px;
-                }
-
-                .add-to-cart {
-                    background-color: var(--gray-200);
-                    color: var(--secondary);
+                .filter-button {
+                    background: none;
                     border: none;
-                    border-radius: 50%;
-                    width: 36px;
-                    height: 36px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
+                    font-family: 'Montserrat', sans-serif;
+                    font-size: 0.8rem;
+                    letter-spacing: 1px;
+                    color: var(--light-text);
+                    margin: 0 12px;
+                    padding: 5px 2px;
                     cursor: pointer;
-                    transition: var(--transition);
-                    opacity: 0.9;
+                    position: relative;
+                    transition: all 0.3s ease;
                 }
 
-                .add-to-cart:hover {
-                    background-color: var(--secondary);
-                    color: white;
-                }
-
-                .add-to-cart:active {
-                    transform: scale(0.95);
-                }
-
-                .cart-tooltip {
-                    position: absolute;
-                    bottom: 100%;
-                    right: 0;
-                    background-color: var(--secondary);
-                    color: white;
-                    font-size: 12px;
-                    padding: 6px 12px;
-                    border-radius: 4px;
-                    white-space: nowrap;
-                    opacity: 0;
-                    transform: translateY(5px);
-                    transition: var(--transition);
-                    pointer-events: none;
-                    margin-bottom: 8px;
-                }
-
-                .cart-tooltip::after {
+                .filter-button::after {
                     content: '';
-                    position: absolute;
-                    top: 100%;
-                    right: 14px;
-                    border-width: 5px;
-                    border-style: solid;
-                    border-color: var(--secondary) transparent transparent transparent;
-                }
-
-                .add-to-cart:hover+.cart-tooltip {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-
-                .product-quick-view {
                     position: absolute;
                     bottom: 0;
                     left: 0;
-                    right: 0;
-                    background-color: rgba(49, 48, 44, 0.9);
-                    color: white;
-                    text-align: center;
-                    padding: 10px;
+                    width: 0;
+                    height: 1px;
+                    background-color: var(--accent);
+                    transition: width 0.3s ease;
+                }
+
+                .filter-button:hover::after,
+                .filter-button.active::after {
+                    width: 100%;
+                }
+
+                .filter-button.active {
+                    color: var(--text-color);
                     font-weight: 500;
-                    font-size: 13px;
-                    transform: translateY(100%);
-                    transition: var(--transition);
+                }
+
+                .products-grid {
+                    display: grid;
+                    grid-template-columns: repeat(4, 1fr);
+                    gap: 25px;
+                    margin-bottom: 20px;
+                }
+
+                .product-card {
+                    background-color: var(--white);
+                    border-radius: 8px;
+                    overflow: hidden;
+                    position: relative;
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
                     cursor: pointer;
                 }
 
-                .product-card:hover .product-quick-view {
-                    transform: translateY(0);
+                .product-card:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
                 }
 
-                .cart-notification {
-                    position: fixed;
-                    bottom: 20px;
-                    right: 20px;
-                    background-color: var(--secondary);
-                    color: white;
-                    padding: 12px 16px;
-                    border-radius: var(--border-radius);
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                    transform: translateY(100px);
-                    opacity: 0;
-                    transition: var(--transition);
-                    z-index: 10;
-                    max-width: 300px;
+                .product-card:hover .product-image img {
+                    transform: scale(1.05);
                 }
 
-                .cart-notification.active {
-                    transform: translateY(0);
+                .product-card:hover .add-to-cart {
                     opacity: 1;
+                    transform: translateY(0);
                 }
 
-                .notification-check {
-                    width: 18px;
-                    height: 18px;
+                .product-image {
+                    position: relative;
+                    height: 200px;
+                    overflow: hidden;
+                }
+
+                .product-image img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    transition: transform 0.5s ease;
+                }
+
+                .product-badge {
+                    position: absolute;
+                    top: 10px;
+                    left: 10px;
+                    background-color: var(--primary-color);
+                    color: var(--text-color);
+                    font-family: 'Montserrat', sans-serif;
+                    font-size: 0.7rem;
+                    padding: 4px 10px;
+                    border-radius: 20px;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                }
+
+                .product-details {
+                    padding: 15px;
+                    position: relative;
+                }
+
+                .product-name {
+                    font-size: 1.2rem;
+                    margin-bottom: 5px;
+                    font-weight: 500;
+                    transition: color 0.3s ease;
+                }
+
+                .product-card:hover .product-name {
+                    color: var(--accent);
+                }
+
+                .product-material {
+                    font-family: 'Montserrat', sans-serif;
+                    font-size: 0.75rem;
+                    color: var(--light-text);
+                    margin-bottom: 8px;
+                }
+
+                .product-price {
+                    font-size: 1.1rem;
+                    font-weight: 600;
+                    margin-top: 8px;
+                }
+
+                .add-to-cart {
                     background-color: var(--accent);
-                    border-radius: 50%;
+                    color: white;
+                    border: none;
+                    font-family: 'Montserrat', sans-serif;
+                    font-size: 0.8rem;
+                    letter-spacing: 1px;
+                    padding: 8px 0;
+                    width: 100%;
+                    text-transform: uppercase;
+                    cursor: pointer;
+                    transition: background-color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    opacity: 0;
+                    transform: translateY(10px);
+                }
+
+                .add-to-cart:hover {
+                    background-color: var(--dark-accent);
+                }
+
+                .quick-view-modal {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.7);
                     display: flex;
-                    align-items: center;
                     justify-content: center;
+                    align-items: center;
+                    z-index: 1000;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: opacity 0.3s ease, visibility 0.3s ease;
                 }
 
-                .notification-text {
-                    font-size: 14px;
-                    line-height: 1.4;
+                .quick-view-content {
+                    background-color: var(--white);
+                    width: 90%;
+                    max-width: 600px;
+                    max-height: 80vh;
+                    border-radius: 8px;
+                    overflow: auto;
+                    position: relative;
+                    transform: translateY(20px);
+                    transition: transform 0.3s ease;
+                }
+
+                .quick-view-modal.active {
+                    opacity: 1;
+                    visibility: visible;
+                }
+
+                .quick-view-modal.active .quick-view-content {
+                    transform: translateY(0);
+                }
+
+                .quick-view-close {
+                    position: absolute;
+                    top: 15px;
+                    right: 15px;
+                    background: none;
+                    border: none;
+                    font-size: 1.5rem;
+                    cursor: pointer;
+                    color: var(--text-color);
+                    z-index: 10;
+                }
+
+                .quick-view-gallery {
+                    display: flex;
+                    width: 100%;
+                    height: 300px;
+                }
+
+                .quick-view-image {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+
+                .quick-view-details {
+                    padding: 25px;
+                }
+
+                .quick-view-name {
+                    font-size: 1.6rem;
+                    margin-bottom: 10px;
+                }
+
+                .quick-view-info {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 15px;
+                }
+
+                .quick-view-material,
+                .quick-view-dimensions {
+                    font-family: 'Montserrat', sans-serif;
+                    font-size: 0.8rem;
+                    color: var(--light-text);
+                }
+
+                .quick-view-price {
+                    font-size: 1.3rem;
+                    font-weight: 600;
+                    margin: 15px 0;
+                }
+
+                .quick-view-description {
+                    font-family: 'Montserrat', sans-serif;
+                    font-size: 0.9rem;
+                    line-height: 1.6;
+                    color: var(--light-text);
+                    margin-bottom: 20px;
+                }
+
+                .quick-view-actions {
+                    display: flex;
+                    gap: 10px;
+                }
+
+                .quick-view-add,
+                .quick-view-save {
                     flex: 1;
+                    padding: 12px;
+                    font-family: 'Montserrat', sans-serif;
+                    font-size: 0.8rem;
+                    letter-spacing: 1px;
+                    text-transform: uppercase;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
                 }
 
-                /* For mobile screens */
+                .quick-view-add {
+                    background-color: var(--accent);
+                    color: white;
+                }
+
+                .quick-view-add:hover {
+                    background-color: var(--dark-accent);
+                }
+
+                .quick-view-save {
+                    background-color: transparent;
+                    border: 1px solid var(--accent);
+                    color: var(--accent);
+                }
+
+                .quick-view-save:hover {
+                    background-color: rgba(201, 168, 146, 0.1);
+                }
+
                 @media (max-width: 600px) {
-                    .product-grid {
-                        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-                        gap: 15px;
+                    .products-grid {
+                        grid-template-columns: 1fr;
                     }
 
-                    .product-card {
-                        height: 320px;
+                    h1 {
+                        font-size: 2rem;
+                    }
+
+                    .filter-button {
+                        margin: 0 8px;
+                        font-size: 0.75rem;
                     }
 
                     .product-image {
-                        height: 170px;
-                    }
-
-                    .product-name {
-                        font-size: 14px;
-                    }
-
-                    .price {
-                        font-size: 16px;
+                        height: 180px;
                     }
                 }
 
-                /* Loading animation */
-                @keyframes shimmer {
+                .notification {
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    background-color: var(--accent);
+                    color: white;
+                    padding: 10px 20px;
+                    border-radius: 4px;
+                    font-family: 'Montserrat', sans-serif;
+                    font-size: 0.9rem;
+                    opacity: 0;
+                    transform: translateY(20px);
+                    transition: opacity 0.3s ease, transform 0.3s ease;
+                    z-index: 1001;
+                }
+
+                .notification.show {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+
+                /* Loader animation */
+                .loader {
+                    width: 30px;
+                    height: 30px;
+                    border: 3px solid var(--secondary-color);
+                    border-radius: 50%;
+                    border-top-color: var(--accent);
+                    animation: spin 1s infinite ease-in-out;
+                    margin: 0 auto;
+                }
+
+                @keyframes spin {
                     0% {
-                        background-position: -468px 0;
+                        transform: rotate(0deg);
                     }
 
                     100% {
-                        background-position: 468px 0;
+                        transform: rotate(360deg);
                     }
                 }
 
-                .loading .product-card {
-                    pointer-events: none;
+                /* Fade in animation for products */
+                @keyframes fadeIn {
+                    from {
+                        opacity: 0;
+                        transform: translateY(10px);
+                    }
+
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
                 }
 
-                .loading .product-image {
-                    background-color: var(--gray-200);
-                    background-image: linear-gradient(to right,
-                            var(--gray-200) 0%,
-                            var(--gray-100) 20%,
-                            var(--gray-200) 40%,
-                            var(--gray-200) 100%);
-                    background-repeat: no-repeat;
-                    background-size: 800px 100%;
-                    animation: shimmer 1.5s infinite linear;
+                .product-card {
+                    animation: fadeIn 0.5s ease forwards;
                 }
 
-                .loading .product-category,
-                .loading .product-name,
-                .loading .rating,
-                .loading .price-row {
-                    background-color: var(--gray-200);
-                    border-radius: 4px;
-                    height: 14px;
-                    margin-bottom: 8px;
-                    background-image: linear-gradient(to right,
-                            var(--gray-200) 0%,
-                            var(--gray-100) 20%,
-                            var(--gray-200) 40%,
-                            var(--gray-200) 100%);
-                    background-repeat: no-repeat;
-                    background-size: 800px 100%;
-                    animation: shimmer 1.5s infinite linear;
+                .product-card:nth-child(2) {
+                    animation-delay: 0.1s;
                 }
 
-                .loading .product-name {
-                    height: 18px;
-                    width: 80%;
+                .product-card:nth-child(3) {
+                    animation-delay: 0.2s;
                 }
 
-                .loading .price-row {
-                    height: 20px;
-                    margin-top: auto;
+                .product-card:nth-child(4) {
+                    animation-delay: 0.3s;
+                }
+
+                html,
+                body {
+                    height: 100%;
+                    margin: 0;
+                    padding: 0;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                main {
+                    flex: 1;
                 }
             </style>
         </head>
 
         <body>
-            <header>
-                <div class="logo">NORDIC</div>
-                <div class="cart-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z"
-                            stroke="#31302C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path
-                            d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z"
-                            stroke="#31302C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path
-                            d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6"
-                            stroke="#31302C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                    <div class="cart-count">0</div>
-                </div>
-            </header>
+            <div class="container">
 
-            <div class="filter-options">
-                <div class="filter-option active">All</div>
-                <div class="filter-option">Furniture</div>
-                <div class="filter-option">Lighting</div>
-                <div class="filter-option">Decor</div>
-                <div class="filter-option">Kitchen</div>
-            </div>
-
-            <div class="product-grid">
-                <!-- Product 1 -->
-                <div class="product-card">
-                    <div class="product-image"
-                        style="background-image: url('https://images.unsplash.com/photo-1592078615290-033ee584e267?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80')">
-                        <div class="product-label">New</div>
-                        <div class="product-wishlist">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <div class="product-category">Furniture</div>
-                        <div class="product-name">Oslo Lounge Chair</div>
-                        <div class="rating">
-                            <div class="stars">
-                                <div class="star">★</div>
-                                <div class="star">★</div>
-                                <div class="star">★</div>
-                                <div class="star">★</div>
-                                <div class="star">★</div>
-                            </div>
-                            <div class="review-count">42 reviews</div>
-                        </div>
-                        <div class="price-row">
-                            <div>
-                                <span class="price">$349</span>
-                                <span class="original-price">$429</span>
-                            </div>
-                            <button class="add-to-cart" data-product="Oslo Lounge Chair" data-price="349">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </button>
-                            <div class="cart-tooltip">Add to cart</div>
-                        </div>
-                    </div>
-                    <div class="product-quick-view">Quick view</div>
+                <div class="filter-bar">
+                    <button class="filter-button active" data-filter="all">All</button>
+                    <button class="filter-button" data-filter="cars">Cars</button>
+                    <button class="filter-button" data-filter="trains">Trains</button>
+                    <button class="filter-button" data-filter="boats">Boats</button>
+                    <button class="filter-button" data-filter="planes">Planes</button>
                 </div>
 
-                <!-- Product 2 -->
-                <div class="product-card">
-                    <div class="product-image"
-                        style="background-image: url('https://images.unsplash.com/photo-1538688423619-a81d3f23454b?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80')">
-                        <div class="product-wishlist">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round"></path>
-                            </svg>
+                <div class="products-grid">
+                    <div class="product-card" data-category="cars">
+                        <div class="product-image">
+                            <img src="imgs/pinkcar.png" alt="Alabaster Table Lamp">
+                            <span class="product-badge">Low In Stock</span>
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-name">Pink Wooden Car</h3>
+                            <p class="product-material">Baltic Birch Wood</p>
+                            <p class="product-price">$30</p>
+                            <button class="add-to-cart">Add to Cart</button>
                         </div>
                     </div>
-                    <div class="product-info">
-                        <div class="product-category">Lighting</div>
-                        <div class="product-name">Scandic Pendant Light</div>
-                        <div class="rating">
-                            <div class="stars">
-                                <div class="star">★</div>
-                                <div class="star">★</div>
-                                <div class="star">★</div>
-                                <div class="star">★</div>
-                                <div class="star">☆</div>
-                            </div>
-                            <div class="review-count">28 reviews</div>
+                    <!-- Cars ends -->
+
+                    <div class="product-card" data-category="trains">
+                        <div class="product-image">
+                            <img src="imgs/pinktrain.png" alt="Merino Wool Throw">
                         </div>
-                        <div class="price-row">
-                            <div>
-                                <span class="price">$179</span>
-                            </div>
-                            <button class="add-to-cart" data-product="Scandic Pendant Light" data-price="179">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </button>
-                            <div class="cart-tooltip">Add to cart</div>
+                        <div class="product-details">
+                            <h3 class="product-name">Pink Wooden Train</h3>
+                            <p class="product-material">Baltic Birch Wood</p>
+                            <p class="product-price">$40</p>
+                            <button class="add-to-cart">Add to Cart</button>
                         </div>
                     </div>
-                    <div class="product-quick-view">Quick view</div>
+                    <!-- trains end -->
+                    <div class="product-card" data-category="boats">
+                        <div class="product-image">
+                            <img src="imgs/pinkboat.png" alt="Handblown Glass Vase">
+                            <span class="product-badge">Limited</span>
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-name">Pink Wooden Boat</h3>
+                            <p class="product-material">Baltic Birch Wood</p>
+                            <p class="product-price">$35</p>
+                            <button class="add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <!-- boat ends -->
+
+                    <div class="product-card" data-category="planes">
+                        <div class="product-image">
+                            <img src="imgs/pinkplane.png" alt="Velvet Accent Chair">
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-name">Pink Wooden Plane</h3>
+                            <p class="product-material">Baltic Birch Wood</p>
+                            <p class="product-price">$30</p>
+                            <button class="add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    <!-- plane ends -->
+                </div>
+                <div class="products-grid">
+                    <div class="product-card" data-category="cars">
+                        <div class="product-image">
+                            <img src="imgs/bluecar.png" alt="Alabaster Table Lamp">
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-name">Blue Wooden Car</h3>
+                            <p class="product-material">Baltic Birch Wood</p>
+                            <p class="product-price">$30</p>
+                            <button class="add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    <!-- Cars ends -->
+
+                    <div class="product-card" data-category="trains">
+                        <div class="product-image">
+                            <img src="imgs/bluetrain.png" alt="Merino Wool Throw">
+                            <span class="product-badge">Low In Stock</span>
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-name">Blue Wooden Train</h3>
+                            <p class="product-material">Baltic Birch Wood</p>
+                            <p class="product-price">$40</p>
+                            <button class="add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    <!-- trains end -->
+                    <div class="product-card" data-category="boats">
+                        <div class="product-image">
+                            <img src="imgs/blueboat.png" alt="Handblown Glass Vase">
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-name">Blue Wooden Boat</h3>
+                            <p class="product-material">Baltic Birch Wood</p>
+                            <p class="product-price">$35</p>
+                            <button class="add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    <!-- boat ends -->
+
+                    <div class="product-card" data-category="planes">
+                        <div class="product-image">
+                            <img src="imgs/blueplane.png" alt="Velvet Accent Chair">
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-name">Blue Wooden Plane</h3>
+                            <p class="product-material">Baltic Birch Wood</p>
+                            <p class="product-price">$30</p>
+                            <button class="add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    <!-- plane ends -->
+                </div>
+                <div class="products-grid">
+                    <div class="product-card" data-category="cars">
+                        <div class="product-image">
+                            <img src="imgs/greencar.png" alt="Alabaster Table Lamp">
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-name">Green Wooden Car</h3>
+                            <p class="product-material">Baltic Birch Wood</p>
+                            <p class="product-price">$30</p>
+                            <button class="add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    <!-- Cars ends -->
+
+                    <div class="product-card" data-category="trains">
+                        <div class="product-image">
+                            <img src="imgs/greentrain.png" alt="Merino Wool Throw">
+                            <span class="product-badge">Low In Stock</span>
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-name">Green Wooden Train</h3>
+                            <p class="product-material">Baltic Birch Wood</p>
+                            <p class="product-price">$40</p>
+                            <button class="add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    <!-- trains end -->
+                    <div class="product-card" data-category="boats">
+                        <div class="product-image">
+                            <img src="imgs/greenboat.png" alt="Handblown Glass Vase">
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-name">Green Wooden Boat</h3>
+                            <p class="product-material">Baltic Birch Wood</p>
+                            <p class="product-price">$35</p>
+                            <button class="add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    <!-- boat ends -->
+
+                    <div class="product-card" data-category="planes">
+                        <div class="product-image">
+                            <img src="imgs/greenplane.png" alt="Velvet Accent Chair">
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-name">Green Wooden Plane</h3>
+                            <p class="product-material">Baltic Birch Wood</p>
+                            <p class="product-price">$30</p>
+                            <button class="add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    <!-- plane ends -->
+                    <!-- START HERE FOR YELOW PRODUCTS -->
+                    <div class="products-grid">
+                        <div class="product-card" data-category="cars">
+                            <div class="product-image">
+                                <img src="imgs/greencar.png" alt="Alabaster Table Lamp">
+                            </div>
+                            <div class="product-details">
+                                <h3 class="product-name"> Wooden Car</h3>
+                                <p class="product-material">Baltic Birch Wood</p>
+                                <p class="product-price">$30</p>
+                                <button class="add-to-cart">Add to Cart</button>
+                            </div>
+                        </div>
+                        <!-- Cars ends -->
+
+                        <div class="product-card" data-category="trains">
+                            <div class="product-image">
+                                <img src="imgs/greentrain.png" alt="Merino Wool Throw">
+                                <span class="product-badge">Low In Stock</span>
+                            </div>
+                            <div class="product-details">
+                                <h3 class="product-name">Green Wooden Train</h3>
+                                <p class="product-material">Baltic Birch Wood</p>
+                                <p class="product-price">$40</p>
+                                <button class="add-to-cart">Add to Cart</button>
+                            </div>
+                        </div>
+                        <!-- trains end -->
+                        <div class="product-card" data-category="boats">
+                            <div class="product-image">
+                                <img src="imgs/greenboat.png" alt="Handblown Glass Vase">
+                            </div>
+                            <div class="product-details">
+                                <h3 class="product-name">Green Wooden Boat</h3>
+                                <p class="product-material">Baltic Birch Wood</p>
+                                <p class="product-price">$35</p>
+                                <button class="add-to-cart">Add to Cart</button>
+                            </div>
+                        </div>
+                        <!-- boat ends -->
+
+                        <div class="product-card" data-category="planes">
+                            <div class="product-image">
+                                <img src="imgs/greenplane.png" alt="Velvet Accent Chair">
+                            </div>
+                            <div class="product-details">
+                                <h3 class="product-name">Green Wooden Plane</h3>
+                                <p class="product-material">Baltic Birch Wood</p>
+                                <p class="product-price">$30</p>
+                                <button class="add-to-cart">Add to Cart</button>
+                            </div>
+                        </div>
+
+
+                    </div>
                 </div>
 
-                <!-- Product 3 -->
-                <div class="product-card">
-                    <div class="product-image"
-                        style="background-image: url('https://images.unsplash.com/photo-1499933374294-4584851497cc?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80')">
-                        <div class="product-label">Bestseller</div>
-                        <div class="product-wishlist">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round"></path>
-                            </svg>
+
+                <div class="quick-view-modal">
+                    <div class="quick-view-content">
+                        <button class="quick-view-close">&times;</button>
+                        <div class="quick-view-gallery">
+                            <img class="quick-view-image" src="" alt="">
+                        </div>
+                        <div class="quick-view-details">
+                            <h2 class="quick-view-name"></h2>
+                            <div class="quick-view-info">
+                                <p class="quick-view-material"></p>
+                                <p class="quick-view-dimensions"></p>
+                            </div>
+                            <p class="quick-view-price"></p>
+                            <p class="quick-view-description"></p>
+                            <div class="quick-view-actions">
+                                <button class="quick-view-add">Add to Cart</button>
+                                <button class="quick-view-save">Save for Later</button>
+                            </div>
                         </div>
                     </div>
-                    <div class="product-info">
-                        <div class="product-category">Decor</div>
-                        <div class="product-name">Minimalist Vase Set</div>
-                        <div class="rating">
-                            <div class="stars">
-                                <div class="star">★</div>
-                                <div class="star">★</div>
-                                <div class="star">★</div>
-                                <div class="star">★</div>
-                                <div class="star">★</div>
-                            </div>
-                            <div class="review-count">57 reviews</div>
-                        </div>
-                        <div class="price-row">
-                            <div>
-                                <span class="price">$89</span>
-                                <span class="original-price">$119</span>
-                            </div>
-                            <button class="add-to-cart" data-product="Minimalist Vase Set" data-price="89">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </button>
-                            <div class="cart-tooltip">Add to cart</div>
-                        </div>
-                    </div>
-                    <div class="product-quick-view">Quick view</div>
                 </div>
 
-                <!-- Product 4 -->
-                <div class="product-card">
-                    <div class="product-image"
-                        style="background-image: url('https://images.unsplash.com/photo-1589782182703-2aaa69037b5b?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80')">
-                        <div class="product-wishlist">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <div class="product-category">Kitchen</div>
-                        <div class="product-name">Wooden Cutting Board</div>
-                        <div class="rating">
-                            <div class="stars">
-                                <div class="star">★</div>
-                                <div class="star">★</div>
-                                <div class="star">★</div>
-                                <div class="star">★</div>
-                                <div class="star">☆</div>
-                            </div>
-                            <div class="review-count">34 reviews</div>
-                        </div>
-                        <div class="price-row">
-                            <div>
-                                <span class="price">$49</span>
-                            </div>
-                            <button class="add-to-cart" data-product="Wooden Cutting Board" data-price="49">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </button>
-                            <div class="cart-tooltip">Add to cart</div>
-                        </div>
-                    </div>
-                    <div class="product-quick-view">Quick view</div>
-                </div>
+                <div class="notification"></div>
 
-                <!-- Product 5 -->
-                <div class="product-card">
-                    <div class="product-image"
-                        style="background-image: url('https://images.unsplash.com/photo-1517705008128-361805f42e86?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80')">
-                        <div class="product-label">Sale</div>
-                        <div class="product-wishlist">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <div class="product-category">Furniture</div>
-                        <div class="product-name">Nordic Coffee Table</div>
-                        <div class="rating">
-                            <div class="stars">
-                                <div class="star">★</div>
-                                <div class="star">★</div>
-                                <div class="star">★</div>
-                                <div class="star">★</div>
-                                <div class="star">☆</div>
-                            </div>
-                            <div class="review-count">21 reviews</div>
-                        </div>
-                        <div class="price-row">
-                            <div>
-                                <span class="price">$249</span>
-                                <span class="original-price">$329</span>
-                            </div>
-                            <button class="add-to-cart" data-product="Nordic Coffee Table" data-price="249">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </button>
-                            <div class="cart-tooltip">Add to cart</div>
-                        </div>
-                    </div>
-                    <div class="product-quick-view">Quick view</div>
-                </div>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        // Product data
+                        const productData = {
+                            "Alabaster Table Lamp": {
+                                description: "This exquisite table lamp features a natural alabaster stone base that diffuses light with a warm, inviting glow. Each piece carries subtle variations in veining, making your lamp truly one-of-a-kind.",
+                                dimensions: "H: 42cm × Ø: 28cm",
+                                details: "The lampshade is crafted from fine Belgian linen in a soft ivory tone that complements the alabaster's natural warmth. The brass hardware adds a sophisticated accent that will patina beautifully over time."
+                            },
+                            "Merino Wool Throw": {
+                                description: "Luxuriously soft and remarkably warm, our merino wool throw is handcrafted in Portugal using traditional weaving techniques. The subtle herringbone pattern adds texture while maintaining a refined aesthetic.",
+                                dimensions: "130cm × 180cm",
+                                details: "Washable at low temperatures and naturally flame-resistant, this throw combines practicality with understated luxury. Available in six curated colorways designed to complement both contemporary and classic interiors."
+                            },
+                            "Handblown Glass Vase": {
+                                description: "Created by master artisans in Murano, Italy, each vase features graceful curves and an ethereal gradient of color. The complex technique requires years of expertise, resulting in a sculptural piece that stands as art even without flowers.",
+                                dimensions: "H: 32cm × Ø: 18cm",
+                                details: "Limited to a production of only 100 pieces, each vase is signed and numbered by the artist. The subtle blend of azure and amber tones shifts beautifully as light passes through the glass at different angles."
+                            },
+                            "Velvet Accent Chair": {
+                                description: "This statement chair balances mid-century inspired lines with contemporary comfort. The walnut frame is hand-finished to highlight the wood's natural grain, while the plush cushions invite lingering conversation.",
+                                dimensions: "W: 75cm × D: 80cm × H: 85cm",
+                                details: "The Belgian linen upholstery is treated with an eco-friendly stain-resistant finish, making this sophisticated piece as practical as it is beautiful. Each chair is bench-made by skilled craftspeople in a small Portuguese workshop."
+                            }
+                        };
 
-                <!-- Product 6 -->
-                <div class="product-card">
-                    <div class="product-image"
-                        style="background-image: url('https://images.unsplash.com/photo-1567225557594-88d73e55f2cb?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80')">
-                        <div class="product-wishlist">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <div class="product-category">Decor</div>
-                        <div class="product-name">Abstract Wall Art</div>
-                        <div class="rating">
-                            <div class="stars">
-                                <div class="star">★</div>
-                                <div class="star">★</div>
-                                <div class="star">★</div>
-                                <div class="star">★</div>
-                                <div class="star">★</div>
-                            </div>
-                            <div class="review-count">18 reviews</div>
-                        </div>
-                        <div class="price-row">
-                            <div>
-                                <span class="price">$129</span>
-                            </div>
-                            <button class="add-to-cart" data-product="Abstract Wall Art" data-price="129">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </button>
-                            <div class="cart-tooltip">Add to cart</div>
-                        </div>
-                    </div>
-                    <div class="product-quick-view">Quick view</div>
-                </div>
-            </div>
+                        // Filter functionality
+                        const filterButtons = document.querySelectorAll('.filter-button');
+                        const productCards = document.querySelectorAll('.product-card');
 
-            <div class="cart-notification">
-                <div class="notification-check">
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20 6L9 17L4 12" stroke="white" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                </div>
-                <div class="notification-text">Product added to your cart</div>
-            </div>
+                        filterButtons.forEach(button => {
+                            button.addEventListener('click', function () {
+                                const filter = this.getAttribute('data-filter');
 
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    const addToCartButtons = document.querySelectorAll('.add-to-cart');
-                    const cartCount = document.querySelector('.cart-count');
-                    const cartNotification = document.querySelector('.cart-notification');
-                    const wishlistButtons = document.querySelectorAll('.product-wishlist');
-                    const filterOptions = document.querySelectorAll('.filter-option');
-                    const productCards = document.querySelectorAll('.product-card');
-                    const productQuickViews = document.querySelectorAll('.product-quick-view');
-
-                    let cartItems = 0;
-
-                    // Add to cart functionality
-                    addToCartButtons.forEach(button => {
-                        button.addEventListener('click', function (e) {
-                            e.stopPropagation();
-
-                            // Get product details
-                            const productName = this.getAttribute('data-product');
-                            const productPrice = this.getAttribute('data-price');
-
-                            // Update cart count
-                            cartItems++;
-                            cartCount.textContent = cartItems;
-                            cartCount.classList.add('active');
-
-                            // Show notification
-                            cartNotification.classList.add('active');
-                            cartNotification.querySelector('.notification-text').textContent =
-                                `${productName} added to your cart`;
-
-                            // Hide notification after 3 seconds
-                            setTimeout(() => {
-                                cartNotification.classList.remove('active');
-                            }, 3000);
-
-                            // Animate button
-                            this.classList.add('clicked');
-                            setTimeout(() => {
-                                this.classList.remove('clicked');
-                            }, 300);
-                        });
-                    });
-
-                    // Wishlist functionality
-                    wishlistButtons.forEach(button => {
-                        button.addEventListener('click', function (e) {
-                            e.stopPropagation();
-                            this.classList.toggle('active');
-                        });
-                    });
-
-                    // Filter functionality
-                    filterOptions.forEach(option => {
-                        option.addEventListener('click', function () {
-                            // Remove active class from all options
-                            filterOptions.forEach(opt => opt.classList.remove('active'));
-
-                            // Add active class to clicked option
-                            this.classList.add('active');
-
-                            // Get filter category
-                            const filterCategory = this.textContent.trim();
-
-                            // Show loading state
-                            document.querySelector('.product-grid').classList.add('loading');
-
-                            // Simulate loading delay
-                            setTimeout(() => {
-                                document.querySelector('.product-grid').classList.remove('loading');
+                                // Update active button
+                                filterButtons.forEach(btn => btn.classList.remove('active'));
+                                this.classList.add('active');
 
                                 // Filter products
-                                if (filterCategory === 'All') {
-                                    productCards.forEach(card => {
-                                        card.style.display = 'flex';
-                                    });
-                                } else {
-                                    productCards.forEach(card => {
-                                        const cardCategory = card.querySelector('.product-category').textContent;
-                                        if (cardCategory === filterCategory) {
-                                            card.style.display = 'flex';
-                                        } else {
-                                            card.style.display = 'none';
-                                        }
-                                    });
+                                productCards.forEach(card => {
+                                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                                        card.style.display = 'block';
+                                    } else {
+                                        card.style.display = 'none';
+                                    }
+                                });
+                            });
+                        });
+
+                        // Quick view modal functionality
+                        const modal = document.querySelector('.quick-view-modal');
+                        const modalClose = document.querySelector('.quick-view-close');
+                        const modalName = document.querySelector('.quick-view-name');
+                        const modalMaterial = document.querySelector('.quick-view-material');
+                        const modalDimensions = document.querySelector('.quick-view-dimensions');
+                        const modalPrice = document.querySelector('.quick-view-price');
+                        const modalDescription = document.querySelector('.quick-view-description');
+                        const modalImage = document.querySelector('.quick-view-image');
+                        const modalAddButton = document.querySelector('.quick-view-add');
+                        const modalSaveButton = document.querySelector('.quick-view-save');
+
+                        // Open quick view modal when clicking on product card
+                        productCards.forEach(card => {
+                            card.addEventListener('click', function (e) {
+                                if (!e.target.classList.contains('add-to-cart')) {
+                                    const name = this.querySelector('.product-name').textContent;
+                                    const material = this.querySelector('.product-material').textContent;
+                                    const price = this.querySelector('.product-price').textContent;
+                                    const imgSrc = this.querySelector('.product-image img').src;
+
+                                    modalName.textContent = name;
+                                    modalMaterial.textContent = material;
+                                    modalDimensions.textContent = productData[name].dimensions;
+                                    modalPrice.textContent = price;
+                                    modalDescription.textContent = productData[name].description;
+                                    modalImage.src = imgSrc;
+
+                                    modal.classList.add('active');
+                                    document.body.style.overflow = 'hidden';
                                 }
-                            }, 600);
+                            });
                         });
-                    });
 
-                    // Quick view functionality
-                    productQuickViews.forEach(quickView => {
-                        quickView.addEventListener('click', function (e) {
-                            e.stopPropagation();
-                            const productCard = this.closest('.product-card');
-                            const productName = productCard.querySelector('.product-name').textContent;
+                        // Close modal
+                        modalClose.addEventListener('click', function () {
+                            modal.classList.remove('active');
+                            document.body.style.overflow = '';
+                        });
 
-                            // Show notification for quick view
-                            cartNotification.classList.add('active');
-                            cartNotification.querySelector('.notification-text').textContent =
-                                `Quick view: ${productName}`;
+                        // Close modal when clicking outside content
+                        modal.addEventListener('click', function (e) {
+                            if (e.target === modal) {
+                                modal.classList.remove('active');
+                                document.body.style.overflow = '';
+                            }
+                        });
 
-                            // Hide notification after 3 seconds
+                        // Add to cart functionality
+                        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+                        const notification = document.querySelector('.notification');
+
+                        function showNotification(message) {
+                            notification.textContent = message;
+                            notification.classList.add('show');
+
                             setTimeout(() => {
-                                cartNotification.classList.remove('active');
+                                notification.classList.remove('show');
                             }, 3000);
+                        }
+
+                        addToCartButtons.forEach(button => {
+                            button.addEventListener('click', function (e) {
+                                e.stopPropagation();
+                                const productName = this.closest('.product-details').querySelector('.product-name').textContent;
+                                showNotification(`${productName} added to your cart`);
+                            });
+                        });
+
+                        modalAddButton.addEventListener('click', function () {
+                            const productName = modalName.textContent;
+                            showNotification(`${productName} added to your cart`);
+                            modal.classList.remove('active');
+                            document.body.style.overflow = '';
+                        });
+
+                        modalSaveButton.addEventListener('click', function () {
+                            const productName = modalName.textContent;
+                            showNotification(`${productName} saved for later`);
+                            modal.classList.remove('active');
+                            document.body.style.overflow = '';
                         });
                     });
-
-                    // Product card click
-                    productCards.forEach(card => {
-                        card.addEventListener('click', function () {
-                            const productName = this.querySelector('.product-name').textContent;
-
-                            // Show notification
-                            cartNotification.classList.add('active');
-                            cartNotification.querySelector('.notification-text').textContent =
-                                `Viewing product: ${productName}`;
-
-                            // Hide notification after 3 seconds
-                            setTimeout(() => {
-                                cartNotification.classList.remove('active');
-                            }, 3000);
-                        });
-                    });
-
-                    // Simulate initial loading
-                    document.querySelector('.product-grid').classList.add('loading');
-                    setTimeout(() => {
-                        document.querySelector('.product-grid').classList.remove('loading');
-                    }, 1000);
-                });
-            </script>
+                </script>
         </body>
 
         </html>
     </main>
+    <!-- Footer -->
     <footer>
         <div class="footer">
             <div class="row">
@@ -968,9 +914,6 @@
                     <li><a href="contact.html">Contact us</a></li>
                     <li><a href="gallery.html">Our Services</a></li>
                     <li><a href="index.html">Policy</a></li>
-
-
-
                 </ul>
             </div>
         </div>
