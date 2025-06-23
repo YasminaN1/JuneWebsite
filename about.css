@@ -31,12 +31,13 @@
             letter-spacing: 3px;
             text-transform: uppercase;
             margin-bottom: 20px;
+            margin-top: 40px;
         }
 
         .hero-content .tagline {
             font-size: 1.3em;
             color: #63380a;
-            font-style: italic;
+            font-style: normal;
             max-width: 600px;
             margin: 0 auto;
         }
@@ -192,7 +193,7 @@
         .social-link {
             display: inline-block;
             padding: 12px 20px;
-            background: #474544;
+            background: #fac47c;
             color: white;
             text-decoration: none;
             border-radius: 25px;
@@ -203,32 +204,11 @@
         }
 
         .social-link:hover {
-            background: #5A5A5A;
+            background: #f47b52fa;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(71, 69, 68, 0.3);
+            box-shadow: 0 5px 15px rgba(144, 116, 102, 0.3);
         }
 
-        .visit-cta {
-            background: linear-gradient(135deg, #474544 0%, #5A5A5A 100%);
-            color: white;
-            padding: 50px;
-            border-radius: 15px;
-            text-align: center;
-            margin-top: 60px;
-        }
-
-        .visit-cta h3 {
-            font-size: 2em;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .visit-cta p {
-            font-size: 1.2em;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 0;
-        }
 
         @media (max-width: 768px) {
             .hero-content h1 {
